@@ -155,7 +155,7 @@ services:
     ports:
       - "80"
 
-  nginx:
+  climweb_nginx:
     container_name: nginx
     image: nginx:1.27.1-alpine
     restart: unless-stopped
