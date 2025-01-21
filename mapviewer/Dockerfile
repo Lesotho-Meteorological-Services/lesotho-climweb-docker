@@ -55,7 +55,7 @@ RUN echo "ASSET_PREFIX=$ASSET_PREFIX" >> .env
 RUN echo "CMS_API=$CMS_API" >> .env
 
 # Install packages
-RUN --mount=type=cache,target=/root/.yarn YARN_CACHE_FOLDER=/root/.yarn yarn --frozen-lockfile
+RUN --mount=type=cache,target=/root/.yarn YARN_CACHE_FOLDER=/root/.yarn yarn --frozen-lockfile --network-timeout=100000
 
 # Build
 RUN yarn build
