@@ -157,6 +157,14 @@ Log in to container interactive command line interface
 docker exec -it climweb /bin/bash
 ```
 
+Activate virtual environment
+
+```sh
+source /climweb/venv/bin/activate
+
+cd src/climweb
+```
+
 Create superuser providing username, email and strong password
 
 ```sh
