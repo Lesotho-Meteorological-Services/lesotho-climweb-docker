@@ -131,9 +131,11 @@ Note this a special docker network url accessed only from inside the `cms_web` d
 
 
 ### 7. Setup Observability (Logging + Metrics)
-ClimWeb uses OpenTelemetry to collect logs and metrics. The `docker-compose.yml` file includes an opentelemetry-collector that provides a vendro-agonistic way to gather observability data.
+ClimWeb uses [OpenTelemetry](https://opentelemetry.io/) to collect logs and metrics. The `docker-compose.yml` file includes an [opentelemetry-collector](https://opentelemetry.io/docs/collector/) that provides a vendor-agonistic way to gather observability data.
 
-A default configuration that supports uses the [Honeycomb](https://www.honeycomb.io/) platform is provided. Honeycomb provides a generous free tier to get you started. Custom collectors can be used by setting the collector endpoint env variable `OTEL_EXPORTER_OTLP_ENDPOINT` and commenting out the `climweb_otel_collector` service, or configuring the `climweb_otel_collector` to what suits you.
+A default configuration that supports uses the [Honeycomb](https://www.honeycomb.io/) platform is provided. Honeycomb provides a generous free tier to get you started. 
+
+Custom collectors can be used by setting the collector endpoint env variable `OTEL_EXPORTER_OTLP_ENDPOINT` and commenting out the `climweb_otel_collector` service, or configuring the `climweb_otel_collector` to what suits you.
 
 To use the default setup, create a [free Honeycomb account](https://ui.honeycomb.io/signup) and get your API Key from 'Account > Team Settings' menu
 
