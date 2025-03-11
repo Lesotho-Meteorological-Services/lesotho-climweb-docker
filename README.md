@@ -129,7 +129,24 @@ Note this a special docker network url accessed only from inside the `cms_web` d
 
 ---
 
-### 7. Build and launch a running instance of the CMS.
+
+### 7. Setup Observability (Logging + Metrics)
+ClimWeb uses OpenTelemetry to collect logs and metrics. The `docker-compose.yml` file includes an opentelemetry-collector that provides a vendro-agonistic way to gather observability data.
+
+A default configuration that supports uses the [Honeycomb](https://www.honeycomb.io/) platform is provided. Honeycomb provides a generous free tier to get you started. Custom collectors can be used by setting the collector endpoint env variable `OTEL_EXPORTER_OTLP_ENDPOINT` and commenting out the `climweb_otel_collector` service, or configuring the `climweb_otel_collector` to what suits you.
+
+To use the default setup, create a [free Honeycomb account](https://ui.honeycomb.io/signup) and get your API Key from 'Account > Team Settings' menu
+
+
+Update `.env`
+
+```
+CLIMWEB_ENABLE_OTEL=True
+HONEYCOMB_API_KEY=
+```
+
+
+### 8. Build and launch a running instance of the CMS.
 
 Navigate back to climweb project directory using commmand
 
@@ -149,7 +166,7 @@ The instance can be found at `http://localhost:{CMS_PORT}`
 
 ---
 
-### 8. Finally, create superuser to access the CMS Admin interface:
+### 9. Finally, create superuser to access the CMS Admin interface:
 
 Log in to container interactive command line interface
 
@@ -157,18 +174,10 @@ Log in to container interactive command line interface
 docker exec -it climweb /bin/bash
 ```
 
-Activate virtual environment
-
-```sh
-source /climweb/venv/bin/activate
-
-cd src/climweb
-```
-
 Create superuser providing username, email and strong password
 
 ```sh
-python manage.py createsuperuser
+climweb createsuperuser
 ```
 
 The admin instance can be found at `http://localhost:{CMS_PORT}/{CMS_ADMIN_URL_PATH}`
