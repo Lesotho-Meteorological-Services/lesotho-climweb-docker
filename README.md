@@ -5,7 +5,7 @@ Content Management System for NMHSs in Africa
 
 ## User Guide
 
-Read more from the user guide - [nmhs-cms.readthedocs.io](https://nmhs-cms.readthedocs.io/)
+Read more from the user guide - [climweb.readthedocs.io](https://climweb.readthedocs.io/)
 
 
 ## Prerequisites
