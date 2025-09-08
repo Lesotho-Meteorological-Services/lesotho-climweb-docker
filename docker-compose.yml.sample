@@ -75,6 +75,7 @@ services:
         - CLIMWEB_VERSION=${CLIMWEB_VERSION}
         - UID=${UID}
         - GID=${GID}
+        - DOCKER_COMPOSE_WAIT_PLATFORM_SUFFIX=${DOCKER_COMPOSE_WAIT_PLATFORM_SUFFIX:-}
     restart: unless-stopped
     expose:
       - 8000
