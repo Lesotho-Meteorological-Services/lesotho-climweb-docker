@@ -156,15 +156,6 @@ services:
     ports:
       - "3000"
 
-  climweb_mbgl_renderer:
-    container_name: climweb_mbgl_renderer
-    build:
-      context: ./mbgl_renderer
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    ports:
-      - "80"
-
   climweb_nginx:
     container_name: climweb_nginx
     image: nginx:1.27.1-alpine
