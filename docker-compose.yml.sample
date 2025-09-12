@@ -9,7 +9,9 @@ x-climweb-variables: &climweb-variables
   SECRET_KEY: ${SECRET_KEY}
   ALLOWED_HOSTS: ${ALLOWED_HOSTS}
   CSRF_TRUSTED_ORIGINS: ${CSRF_TRUSTED_ORIGINS}
-  DATABASE_URL: postgis://${CMS_DB_USER}:${CMS_DB_PASSWORD}@climweb_db:5432/${CMS_DB_NAME}
+  DATABASE_URL: postgis://${CMS_DB_USER}:${CMS_DB_PASSWORD}@climweb_pgbouncer:5432/${CMS_DB_NAME}
+  DB_CONNECTION_MAX_AGE: ${DB_CONNECTION_MAX_AGE:-0}
+  DB_DISABLE_SERVER_SIDE_CURSORS: ${DB_DISABLE_SERVER_SIDE_CURSORS:-True}
   REDIS_URL: redis://climweb_redis:6379/0
   EMAIL_HOST: ${SMTP_EMAIL_HOST}
   EMAIL_PORT: ${SMTP_EMAIL_PORT}
@@ -58,6 +60,30 @@ services:
     volumes:
       - ${CMS_DB_VOLUME}:/var/lib/postgresql/data/
 
+  climweb_pgbouncer:
+    image: edoburu/pgbouncer:v1.24.1-p1
+    container_name: climweb_pgbouncer
+    restart: unless-stopped
+    environment:
+      DB_HOST: climweb_db
+      DB_USER: ${CMS_DB_USER}
+      DB_PASSWORD: ${CMS_DB_PASSWORD}
+      DB_NAME: ${CMS_DB_NAME}
+      DB_PORT: 5432
+      AUTH_TYPE: scram-sha-256
+      POOL_MODE: transaction                
+      MAX_CLIENT_CONN: 2000                
+      DEFAULT_POOL_SIZE: 16
+      RESERVE_POOL_SIZE: 10
+      SERVER_RESET_QUERY: "DISCARD ALL"
+      IGNORE_STARTUP_PARAMETERS: "extra_float_digits"
+      QUERY_WAIT_TIMEOUT: 60000             # 60s
+      SERVER_IDLE_TIMEOUT: 600
+    depends_on:
+      - climweb_db
+    ports:
+      - "5432"
+
   climweb_redis:
     image: redis:alpine
     container_name: climweb_redis
@@ -80,7 +106,7 @@ services:
       - 8000
     environment:
       <<: *climweb-variables
-      WAIT_HOSTS: climweb_db:5432,climweb_redis:6379
+      WAIT_HOSTS: climweb_pgbouncer:5432,climweb_redis:6379
     ports:
       - "8000"
     extra_hosts:
@@ -106,7 +132,7 @@ services:
     restart: unless-stopped
     environment:
       <<: *climweb-variables
-      WAIT_HOSTS: climweb_db:5432,climweb_redis:6379,climweb:8000
+      WAIT_HOSTS: climweb_pgbouncer:5432,climweb_redis:6379,climweb:8000
     volumes:
       - ${CMS_STATIC_VOLUME}:/climweb/web/src/climweb/static
       - ${CMS_MEDIA_VOLUME}:/climweb/web/src/climweb/media
@@ -128,7 +154,7 @@ services:
     restart: unless-stopped
     environment:
       <<: *climweb-variables
-      WAIT_HOSTS: climweb_db:5432,climweb_redis:6379,climweb:8000
+      WAIT_HOSTS: climweb_pgbouncer:5432,climweb_redis:6379,climweb:8000
     volumes:
       - ${CMS_STATIC_VOLUME}:/climweb/web/src/climweb/static
       - ${CMS_MEDIA_VOLUME}:/climweb/web/src/climweb/media
