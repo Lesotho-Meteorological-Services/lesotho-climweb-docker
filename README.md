@@ -26,6 +26,10 @@ git clone https://github.com/Lesotho-Meteorological-Services/lesotho-climweb-doc
 cd climweb
 ```
 
+```
+git checkout quick-setup
+```
+
 ---
 
 ### 2. Update environmental variables
