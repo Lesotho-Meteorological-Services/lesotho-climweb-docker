@@ -33,6 +33,11 @@ cd climweb
 ```sh
 cp docker-compose.yml.sample docker-compose.yml
 ```
+## Update the climweb_nginx service ports block in docker-compose.yml
+```
+ports:
+      - "${CMS_PORT:-80}:80"
+```
 
 ### 3. Copy Nginx Configuration
 
