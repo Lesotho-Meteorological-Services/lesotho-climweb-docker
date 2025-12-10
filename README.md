@@ -1,4 +1,4 @@
-# Quick ClimWeb Demo Set up
+# Quick ClimWeb Demo Setup
 
 Content Management System for NMHSs in Africa
 
@@ -10,7 +10,7 @@ Read more from the user guide - [climweb.readthedocs.io](https://climweb.readthe
 
 ## Prerequisites
 
-Before installing ClimWeb, consider installing on your server:
+Docker and docker compose
 
 1. **Docker Engine & Docker Compose Plugin :** Ensure that Docker Engine is installed and running on the machine where you plan to execute the docker-compose command https://docs.docker.com/engine/install/. Docker Engine is the runtime environment for containers.
 
