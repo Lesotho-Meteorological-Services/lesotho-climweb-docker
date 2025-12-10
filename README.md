@@ -19,7 +19,7 @@ Before installing ClimWeb, consider installing on your server:
 ### 1. Download from source:
 
 ```sh
-git clone https://github.com/wmo-raf/climweb-docker.git climweb
+git clone [[https://github.com/wmo-raf/climweb-docker.git](https://github.com/Lesotho-Meteorological-Services/lesotho-climweb-docker.git)](https://github.com/Lesotho-Meteorological-Services/lesotho-climweb-docker.git) climweb
 ```
 
 ```sh
