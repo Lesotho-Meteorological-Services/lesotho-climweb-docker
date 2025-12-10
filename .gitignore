@@ -14,7 +14,7 @@ hooks.yaml
 .DS_Store
 
 
-.env
-docker-compose.yml
-nginx/nginx.conf
+# .env
+# docker-compose.yml
+# nginx/nginx.conf
 nginx/ssl/ssl.conf
